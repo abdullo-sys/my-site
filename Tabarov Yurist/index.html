@@ -1,0 +1,749 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tabarov A. M. | Премиальные юридические услуги</title>
+    <!-- Лёгкие шрифты с поддержкой serif для luxury стиля -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome (иконки, но можно и без них, но они лёгкие) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Swiper (лёгкий слайдер) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c10;
+            font-family: 'Montserrat', sans-serif;
+            color: #e5e9f0;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Премиальная типографика */
+        h1, h2, h3, .logo, .hero-title, .section-title, .stat-number, .testimonial-text, .lawyer-name {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, #ffffff 30%, #d4af37 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 2px;
+            background: #d4af37;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+
+        .gold-text {
+            color: #d4af37;
+        }
+
+        .btn-gold {
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-gold:hover {
+            background: #d4af37;
+            color: #0a0c10;
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
+            transform: scale(1.02);
+        }
+
+        /* Навбар */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: rgba(10, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(5, 7, 12, 0.96);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #d4af37);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e0e4f0;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: 0.3s;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-link:hover {
+            color: #d4af37;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #d4af37;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #d4af37;
+        }
+
+        /* Hero с лёгким параллаксом */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 30%, #0f1722, #020408);
+            z-index: -2;
+        }
+
+        .parallax-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBmaWxsPSIjZDRhZjM3IiBmaWxsLW9wYWNpdHk9IjAuMDMiIGQ9Ik0wIDBoNDB2NDBIMHoiLz48L3N2Zz4=');
+            background-repeat: repeat;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 1s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Анимированные весы (лёгкий SVG) */
+        .justice-scale {
+            position: absolute;
+            right: 5%;
+            bottom: 10%;
+            width: 160px;
+            opacity: 0.6;
+            animation: floatScale 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatScale {
+            0% { transform: translateY(0px) rotate(0deg);}
+            50% { transform: translateY(-15px) rotate(2deg);}
+            100% { transform: translateY(0px) rotate(0deg);}
+        }
+
+        /* Секции */
+        section {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Карточки услуг */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: rgba(20, 24, 32, 0.7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #b9c3d4;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #d4af37;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5), 0 0 12px rgba(212,175,55,0.3);
+        }
+
+        /* Статистика */
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-item {
+            flex: 1;
+            background: rgba(0,0,0,0.4);
+            padding: 2rem 1rem;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid #d4af37;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4af37;
+        }
+        .stat-label {
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* О специалисте */
+        .about-wrapper {
+            display: flex;
+            gap: 4rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .about-text {
+            flex: 1.2;
+        }
+        .lawyer-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .about-details {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(212,175,55,0.15);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Слайдер отзывов */
+        .testimonials-slider {
+            margin-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .testimonial-card {
+            background: rgba(18, 22, 28, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(212,175,55,0.3);
+            transition: 0.3s;
+            height: 100%;
+        }
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            color: #d4af37;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: #d4af37;
+        }
+        .swiper-pagination-bullet-active {
+            background: #d4af37;
+        }
+
+        /* Форма */
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: rgba(10,14,20,0.7);
+            padding: 2rem;
+            border-radius: 32px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: #141a24;
+            border: 1px solid #2e3a48;
+            padding: 14px 18px;
+            border-radius: 24px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 6px rgba(212,175,55,0.4);
+        }
+        button[type="submit"] {
+            width: 100%;
+            background: #d4af37;
+            border: none;
+            font-weight: bold;
+            color: #0a0c10;
+            padding: 12px;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button[type="submit"]:hover {
+            background: #e6c87e;
+            box-shadow: 0 0 12px gold;
+        }
+
+        /* Футер и кнопка вверх */
+        footer {
+            background: #03060b;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        .social-links a {
+            color: #d4af37;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #d4af37;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a0c10;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 99;
+            font-size: 1.4rem;
+        }
+        .back-to-top.show {
+            opacity: 1;
+        }
+
+        /* Анимация появления */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(0,0,0,0.95);
+                backdrop-filter: blur(20px);
+                width: 100%;
+                text-align: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .justice-scale {
+                width: 100px;
+                bottom: 5%;
+            }
+            .stats-grid {
+                flex-direction: column;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="logo">Tabarov A. M.</div>
+    <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Главная</a></li>
+        <li><a href="#about" class="nav-link">О юристе</a></li>
+        <li><a href="#services" class="nav-link">Услуги</a></li>
+        <li><a href="#stats" class="nav-link">Дела</a></li>
+        <li><a href="#testimonials" class="nav-link">Отзывы</a></li>
+        <li><a href="#contact" class="nav-link">Контакты</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero">
+    <div class="parallax-bg"></div>
+    <div class="parallax-texture" id="parallaxTexture"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Защищаем ваши права <span class="gold-text">с гарантией результата</span></h1>
+        <p class="hero-sub">Профессиональные юридические услуги от Tabarov A. M. — индивидуальный подход и высокая эффективность.</p>
+        <button class="btn-gold" id="consultBtn">Получить консультацию</button>
+    </div>
+    <div class="justice-scale">
+        <svg width="140" height="140" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 20 L50 80 M30 30 L70 30 M30 70 L70 70 M35 30 L35 70 M65 30 L65 70" stroke="#d4af37" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="6" fill="#d4af37" stroke="#d4af37"/>
+            <path d="M30 30 L20 20 L30 20 L30 30Z" fill="#d4af37"/>
+            <path d="M70 30 L80 20 L70 20 L70 30Z" fill="#d4af37"/>
+            <path d="M30 70 L20 80 L30 80 L30 70Z" fill="#d4af37"/>
+            <path d="M70 70 L80 80 L70 80 L70 70Z" fill="#d4af37"/>
+        </svg>
+    </div>
+</section>
+
+<!-- О специалисте -->
+<section id="about" class="fade-up">
+    <div class="container">
+        <div class="about-wrapper">
+            <div class="about-text">
+                <h2 class="section-title">Tabarov A. M.</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Высококвалифицированный юрист с многолетним опытом, гарантирующий защиту ваших интересов в самых сложных ситуациях.</p>
+                <div class="about-details">
+                    <span class="badge"><i class="fas fa-gavel"></i> 7+ лет практики</span>
+                    <span class="badge"><i class="fas fa-chart-line"></i> 120+ выигранных дел</span>
+                    <span class="badge"><i class="fas fa-handshake"></i> Индивидуальный подход</span>
+                </div>
+                <p style="margin-top: 1.2rem;">Специализация: гражданские, уголовные и бизнес-дела. С каждым клиентом работаем на результат, сочетая стратегическое мышление и глубокое знание законодательства.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Услуги -->
+<section id="services" class="fade-up">
+    <div class="container">
+        <h2 class="section-title">Премиальные услуги</h2>
+        <div class="services-grid">
+            <div class="service-card"><i class="fas fa-balance-scale"></i><h3>Юридическая консультация</h3><p>Глубокий анализ ситуации и стратегия защиты.</p></div>
+            <div class="service-card"><i class="fas fa-gavel"></i><h3>Представительство в суде</h3><p>Полное сопровождение на всех этапах процесса.</p></div>
+            <div class="service-card"><i class="fas fa-shield-alt"></i><h3>Защита по уголовным делам</h3><p>Профессиональная защита прав и интересов.</p></div>
+            <div class="service-card"><i class="fas fa-heart"></i><h3>Семейные споры</h3><p>Деликатное решение семейных конфликтов.</p></div>
+            <div class="service-card"><i class="fas fa-file-signature"></i><h3>Бизнес и договорное право</h3><p>Юридическое сопровождение компаний.</p></div>
+            <div class="service-card"><i class="fas fa-handshake"></i><h3>Решение конфликтов и споров</h3><p>Медиация и досудебное урегулирование.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Статистика -->
+<section id="stats" class="fade-up">
+    <div class="container">
+        <h2 class="section-title">Наши достижения</h2>
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-item"><div class="stat-number" data-target="120">0</div><div class="stat-label">+ выигранных дел</div></div>
+            <div class="stat-item"><div class="stat-number" data-target="95">0</div><div class="stat-label">% успешных исходов</div></div>
+            <div class="stat-item"><div class="stat-number" data-target="7">0</div><div class="stat-label">+ лет опыта</div></div>
+            <div class="stat-item"><div class="stat-number" data-target="300">0</div><div class="stat-label">+ довольных клиентов</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Отзывы слайдер -->
+<section id="testimonials" class="fade-up">
+    <div class="container">
+        <h2 class="section-title">Отзывы клиентов</h2>
+        <div class="swiper testimonials-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Очень грамотный юрист, выиграл моё дело за короткий срок. Рекомендую!”</p><p class="testimonial-author">— Дмитрий В.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Профессионал своего дела. Всё объяснил и довёл дело до победы.”</p><p class="testimonial-author">— Екатерина С.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Благодаря Tabarov A. M. я смог решить сложную ситуацию.”</p><p class="testimonial-author">— Артем К.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Отличный специалист, всегда на связи и реально помогает.”</p><p class="testimonial-author">— Ольга М.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Честный и сильный юрист. Видно опыт.”</p><p class="testimonial-author">— Виктор П.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Результат превзошёл ожидания.”</p><p class="testimonial-author">— Ирина Л.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Серьёзный подход и высокий уровень работы.”</p><p class="testimonial-author">— Максим Н.</p></div></div>
+                <div class="swiper-slide"><div class="testimonial-card"><p class="testimonial-text">“Если нужен юрист — только к нему.”</p><p class="testimonial-author">— Татьяна Д.</p></div></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты и форма -->
+<section id="contact" class="fade-up">
+    <div class="container">
+        <h2 class="section-title">Свяжитесь с нами</h2>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <p style="margin-bottom: 0.5rem;"><i class="fas fa-phone-alt gold-text"></i> <strong>Телефон:</strong> <a href="tel:076384949" style="color:#d4af37; text-decoration: none;">076384949</a></p>
+            <p><i class="fab fa-instagram gold-text"></i> <strong>Instagram:</strong> <a href="https://www.instagram.com/ahmadsho.700" target="_blank" style="color:#d4af37;">@ahmadsho.700</a></p>
+        </div>
+        <form id="callbackForm" class="contact-form">
+            <div class="input-group"><input type="text" placeholder="Ваше имя" id="name" required></div>
+            <div class="input-group"><input type="tel" placeholder="Номер телефона" id="phone" required></div>
+            <div class="input-group"><textarea rows="3" placeholder="Сообщение" id="message"></textarea></div>
+            <button type="submit">Отправить запрос</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <div class="social-links">
+        <a href="tel:076384949"><i class="fas fa-phone-alt"></i></a>
+        <a href="https://www.instagram.com/ahmadsho.700" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p style="margin-top: 1rem;">&copy; 2025 Tabarov A. M. — Юридические услуги. Все права защищены.</p>
+</footer>
+
+<div class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    (function() {
+        // Мобильное меню
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => navLinks.classList.remove('active'));
+            });
+        }
+
+        // Смена стиля навбара
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // Лёгкий параллакс для текстурного слоя
+        const texture = document.getElementById('parallaxTexture');
+        window.addEventListener('scroll', () => {
+            if (texture) texture.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+        });
+
+        // Кнопка консультации -> скролл к контактам
+        const consultBtn = document.getElementById('consultBtn');
+        if (consultBtn) {
+            consultBtn.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }));
+        }
+
+        // Кнопка наверх
+        const backBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) backBtn.classList.add('show');
+            else backBtn.classList.remove('show');
+        });
+        backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Слайдер Swiper
+        new Swiper('.testimonials-slider', {
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            slidesPerView: 1,
+            spaceBetween: 30,
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 2.5 } }
+        });
+
+        // Анимация счётчиков (оптимизировано)
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let statsAnimated = false;
+        const statsSection = document.getElementById('stats');
+        const observerStats = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    statNumbers.forEach(el => {
+                        const target = parseInt(el.getAttribute('data-target'));
+                        let current = 0;
+                        const step = Math.ceil(target / 55);
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                clearInterval(timer);
+                                if (target === 95) el.innerText = '95%';
+                                else if (target === 120) el.innerText = '120+';
+                                else if (target === 7) el.innerText = '7+';
+                                else if (target === 300) el.innerText = '300+';
+                                else el.innerText = target;
+                            } else {
+                                if (target === 95) el.innerText = current + '%';
+                                else el.innerText = current;
+                            }
+                        }, 20);
+                    });
+                    observerStats.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        if (statsSection) observerStats.observe(statsSection);
+
+        // Анимация появления блоков
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const appearObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    appearObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        fadeElements.forEach(el => appearObserver.observe(el));
+
+        // Форма
+        const form = document.getElementById('callbackForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (name && phone) {
+                alert(`Спасибо, ${name}! Ваш запрос принят. Мы свяжемся с вами в ближайшее время.`);
+                form.reset();
+            } else {
+                alert('Пожалуйста, заполните имя и номер телефона.');
+            }
+        });
+    })();
+</script>
+</body>
+</html>
